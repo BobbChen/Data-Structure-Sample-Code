@@ -249,3 +249,107 @@ typedef struct DulNode{
     struct DulNode * prior; // 直接前驱指针
     struct DulNode * next; // 直接后继指针
 } DullNode, *DuLinkList;
+
+#pragma mark - 栈和队列
+typedef int SElemType;
+typedef struct {
+    SElemType data[MAXSIZE];
+    int top; // 标记栈顶指针
+    
+}SqStack;
+
+#pragma mark - 栈的顺序存储结构
+// 进栈
+Status Push(SqStack * S, SElemType e){
+    if (S ->top == MAXSIZE - 1) // 栈的存储空间已满
+    {
+        return ERROR;
+    }
+    
+    S -> top++; // 加入一个元素，栈顶指针增加1
+    S -> data[S -> top] = e; // 新插入的元素赋值给栈顶空间
+    return OK;
+}
+
+// 出栈操作
+Status Pop(SqStack * S, SElemType e)
+{
+    if (S -> top == -1) { // 如果当前栈的栈顶已经为-1则不能再进行出栈操作
+        return ERROR;
+    }
+    e = S -> data[S -> top];
+    S -> top -- ;
+    return OK;
+}
+
+// 两栈共享空间
+typedef struct {
+    SElemType data[MAXSIZE];
+    int top1; // 栈1的栈顶指针
+    int top2; // 栈2的栈顶指针
+    
+}SqDoubleStack;
+
+// 两栈共享空间push
+Status SqDoublePush(SqDoubleStack * S, SElemType e, int stackNumber){
+    if (S -> top1 +1 == S ->top2) // 满栈
+    {
+        return ERROR;
+    }
+    if (stackNumber == 1) {
+        S -> data[++S->top1] = e;
+    }
+    if (stackNumber == 2) {
+        S -> data[-- S-> top2] = e;
+    }
+    return OK;
+}
+
+Status SqDoublePop(SqDoubleStack * S, SElemType *e, int stackNumber)
+{
+    if (stackNumber == 1) {
+        if (S->top1 == -1) // 栈1是空栈
+        {
+            return ERROR;
+        }
+        *e = S->data[S->top1 --];
+    }
+    if (stackNumber == 2) {
+        if (S->top2 == MAXSIZE) {
+            return ERROR;
+        }
+        *e = S->data[S->top2 ++];
+    }
+    return OK;
+}
+
+#pragma mark - 栈的链式存储结构
+// 结构
+typedef struct StackNode {
+    SElemType data;
+    struct StackNode * next;
+}StackNode, *LinkStackPtr;
+
+typedef struct LinkStack{
+    LinkStackPtr top;
+    int count;
+}LinkStack;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
