@@ -12,6 +12,7 @@
 #include <time.h>
 #define MAXSIZE 1000
 #define NODESIZE 20
+#define MAX_TREE_SIZE 100
 typedef int ElemType;
 // 线性表顺序存储结构
 typedef struct {
@@ -334,6 +335,22 @@ typedef struct LinkStack{
     LinkStackPtr top;
     int count;
 }LinkStack;
+
+
+#pragma mark - 树
+/* 双亲表示法 **/
+typedef int TELemType;
+typedef struct PINode // 树结点
+{
+    TELemType data; // 结点数据
+    int parent; // 双亲位置
+} PINode;
+
+typedef struct {  // 树结构
+    PINode nodes[MAX_TREE_SIZE]; // 结点数组
+    int r, n; // 根的位置和结点数
+} PTree;
+
 
 
 
